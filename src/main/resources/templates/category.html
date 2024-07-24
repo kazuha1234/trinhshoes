@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head"></head>
+
+<body id="category">
+
+	<!-- Start Header Area -->
+	<header th:replace="fragments/header :: header"></header>
+	<!-- End Header Area -->
+
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Shop Category page</h1>
+					<nav class="d-flex align-items-center">
+						<a href="/home">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="/home/products">Shop<span class="lnr lnr-arrow-right"></span></a>
+						<a href="/home/products">Fashion Category</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-3 col-lg-4 col-md-5">
+				<div class="sidebar-categories">
+					<div class="head">Browse Categories</div>
+					<div class="main-categories main-nav-list" th:each="category: ${categories}">
+						<a th:href="@{'/products/categories?cate=' + ${category.getCategoryId()}}"><span th:text="${category.categoryName}"></span></a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-9 col-lg-8 col-md-7">
+				<!-- Start Filter Bar -->
+				<div class="filter-bar d-flex flex-wrap justify-content-between">
+					<div class="sorting">
+						<form id="filterForm" th:action="@{/home/products}" method="get">
+							<select name="filter" id="filterSelect" onchange="document.getElementById('filterForm').submit()">
+								<option value="1" th:selected="${param.filter == '1'}">Sort by Price: Default sorting</option>
+								<option value="2" th:selected="${param.filter == '2'}">Sort by Price: Low to high</option>
+								<option value="3" th:selected="${param.filter == '3'}">Sort by Price: High to Low</option>
+							</select>
+							<input type="hidden" name="pageNo" th:value="${param.pageNo}" />
+						</form>
+					</div>
+					<div class="pagination">
+						<a th:if="${keyword != null} and ${keyword != ''}"
+						   th:href="@{'/products?keyword=' + ${keyword} + '&' + 'pageNo='+${i}}" th:each="i:${#numbers.sequence(1, totalPage)}" th:classappend="${currentPage == i ? 'active' : ''}">
+							<span th:text="${i}"></span></a>
+						<a th:if="${keyword == null} or ${keyword == ''}"
+						   th:href="@{'/products?pageNo='+${i}}" th:each="i:${#numbers.sequence(1, totalPage)}" th:classappend="${currentPage == i ? 'active' : ''}">
+							<span th:text="${i}"></span></a>
+					</div>
+				</div>
+				<!-- End Filter Bar -->
+				<!-- Start Best Seller -->
+				<section class="lattest-product-area pb-40 category-list">
+					<div class="row">
+						<!-- single product -->
+						<div class="col-lg-4 col-md-6" th:each="product : ${products}">
+							<div class="single-product">
+								<img class="img-fluid" th:src="@{${product.imageUrl}}" alt="">
+								<div class="product-details">
+									<h6 th:text="${product.productName ?: 'Unknown Product'}"></h6>
+									<div class="price">
+										<h6 th:text="'$' + (${product.price} ?: '0.00')"></h6>
+										<h6 class="l-through">$210.00</h6>
+									</div>
+									<div class="prd-bottom">
+										<a href="" class="social-info">
+											<span class="ti-bag"></span>
+											<p class="hover-text">add to bag</p>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- End Best Seller -->
+				<!-- Start Filter Bar -->
+				<div class="filter-bar d-flex flex-wrap justify-content-center" style="margin-bottom: 20px;">
+					<div class="pagination">
+						<a th:if="${keyword != null} and ${keyword != ''}"
+						   th:href="@{'/products?keyword=' + ${keyword} + '&' + 'pageNo='+${i}}" th:each="i:${#numbers.sequence(1, totalPage)}" th:classappend="${currentPage == i ? 'active' : ''}">
+							<span th:text="${i}"></span></a>
+						<a th:if="${keyword == null} or ${keyword == ''}"
+						   th:href="@{'/products?pageNo='+${i}}" th:each="i:${#numbers.sequence(1, totalPage)}" th:classappend="${currentPage == i ? 'active' : ''}">
+							<span th:text="${i}"></span></a>
+					</div>
+				</div>
+
+				<!-- Display the message if it exists -->
+				<div th:if="${message}" class="alert alert-info">
+					<p th:text="${message}"></p>
+				</div>
+				<!-- End Filter Bar -->
+			</div>
+		</div>
+	</div>
+	
+	<!-- start footer Area -->
+	<footer th:replace="fragments/footer :: footer"></footer>
+	<!-- End footer Area -->
+
+	<!-- Modal Quick Product View -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="container relative">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<div class="product-quick-view">
+					<div class="row align-items-center">
+						<div class="col-lg-6">
+							<div class="quick-view-carousel">
+								<div class="item" style="background: url(img/organic-food/q1.jpg);">
+
+								</div>
+								<div class="item" style="background: url(img/organic-food/q1.jpg);">
+
+								</div>
+								<div class="item" style="background: url(img/organic-food/q1.jpg);">
+
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="quick-view-content">
+								<div class="top">
+									<h3 class="head">Mill Oil 1000W Heater, White</h3>
+									<div class="price d-flex align-items-center"><span class="lnr lnr-tag"></span> <span class="ml-10">$149.99</span></div>
+									<div class="category">Category: <span>Household</span></div>
+									<div class="available">Availibility: <span>In Stock</span></div>
+								</div>
+								<div class="middle">
+									<p class="content">Mill Oil is an innovative oil filled radiator with the most modern technology. If you are
+										looking for something that can make your interior look awesome, and at the same time give you the pleasant
+										warm feeling during the winter.</p>
+									<a href="#" class="view-full">View full Details <span class="lnr lnr-arrow-right"></span></a>
+								</div>
+								<div class="bottom">
+									<div class="color-picker d-flex align-items-center">Color:
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+										<span class="single-pick"></span>
+									</div>
+									<div class="quantity-container d-flex align-items-center mt-15">
+										Quantity:
+										<input type="text" class="quantity-amount ml-15" value="1" />
+										<div class="arrow-btn d-inline-flex flex-column">
+											<button class="increase arrow" type="button" title="Increase Quantity"><span class="lnr lnr-chevron-up"></span></button>
+											<button class="decrease arrow" type="button" title="Decrease Quantity"><span class="lnr lnr-chevron-down"></span></button>
+										</div>
+
+									</div>
+									<div class="d-flex mt-20">
+										<a href="#" class="view-btn color-2"><span>Add to Cart</span></a>
+										<a href="#" class="like-btn"><span class="lnr lnr-layers"></span></a>
+										<a href="#" class="like-btn"><span class="lnr lnr-heart"></span></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="fragments/script :: script"></div>
+</body>
+
+</html>
