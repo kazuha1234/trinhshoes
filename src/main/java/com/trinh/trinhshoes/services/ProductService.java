@@ -18,4 +18,5 @@ public interface ProductService {
     Page<Products> searchProductsByCategoryId(Categories categoryId, Integer pageNo);
     Page<Products> searchProductsByDesc(Page<Products> products, Integer pageNo);
     Page<Products> searchProductsByAsc(Page<Products> products, Integer pageNo);
+    Products findById(String id);
 }

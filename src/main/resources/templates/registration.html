@@ -16,8 +16,8 @@
             <div class="col-first">
                 <h1>Login/Register</h1>
                 <nav class="d-flex align-items-center">
-                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="category.html">Login/Register</a>
+                    <a href="/home">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="/login">Login/Register</a>
                 </nav>
             </div>
         </div>
@@ -35,38 +35,40 @@
                     <div class="hover">
                         <h4>Welcome to our website</h4>
                         <p>If you already have account click here</p>
-                        <a class="primary-btn" href="login.html">Log in</a>
+                        <a class="primary-btn" href="/login">Log in</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="login_form_inner">
                     <h3>Sign up</h3>
-                    <form class="row login_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                    <form class="row login_form" th:action="@{/register}" method="post">
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
                         </div>
 
                         <div class="col-md-12 form-group">
-                            <input type="password" class="form-control" id="name" name="name" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            <input type="password" class="form-control" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="password" class="form-control" id="name" name="name" placeholder="Confirm Your Password" onfocus="this.placeholder = ''" onblur="this.placeholder = ' Confirm Password'">
+                            <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Your Password" onfocus="this.placeholder = ''" onblur="this.placeholder = ' Confirm Password'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Full Name'">
+                            <input type="text" class="form-control" name="fullName" placeholder="Full Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Full Name'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'">
+                            <input type="text" class="form-control" name="address" placeholder="Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'">
                         </div>
 
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Phone Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'">
+                            <input type="text" class="form-control" name="phoneNumber" placeholder="Phone Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'">
                         </div>
                         <div class="col-md-12 form-group">
                             <button type="submit" value="submit" class="primary-btn">Sign up</button>
                         </div>
                     </form>
+                    <p th:if="${error}" th:text="${error}"></p>
+                    <p>Already have an account? <a th:href="@{/login}">Login here</a></p>
                 </div>
             </div>
         </div>

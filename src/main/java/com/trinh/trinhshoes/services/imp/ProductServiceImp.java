@@ -82,4 +82,11 @@ public class ProductServiceImp implements ProductService {
 
         return new PageImpl<>(productsList, PageRequest.of(pageNo - 1, products.getSize()), products.getTotalElements());
     }
+
+    @Override
+    public Products findById(String id) {
+        Products rs = this.productRepository.findById(id).orElse(null);
+
+        return rs;
+    }
 }

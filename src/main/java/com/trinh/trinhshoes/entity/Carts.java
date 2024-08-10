@@ -12,13 +12,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 public class Carts {
-
     @Id
     @GeneratedValue
-    private String cartId;
+    private int cartId;
 
     @Column(nullable = false)
-    private float price;
+    private int quantity;
 
     @OneToOne
     @JoinColumn(name = "customer_id", nullable = false)
@@ -28,5 +27,8 @@ public class Carts {
     @JoinColumn(name = "product_id", nullable = false)
     private Products productId;
 
-
+    public Carts(Products product, int quantity) {
+        this.productId = product;
+        this.quantity = quantity;
+    }
 }

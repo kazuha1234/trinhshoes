@@ -15,7 +15,7 @@ public class Orders {
 
     @Id
     @GeneratedValue
-    private String orderId;
+    private int orderId;
 
     @Column(nullable = false)
     private int totalAmount;
